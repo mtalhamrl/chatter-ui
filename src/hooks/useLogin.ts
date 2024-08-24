@@ -20,11 +20,10 @@ const useLogin = () => {
     });
     if (!res.ok) {
       if (res.status === 401) {
-        setError("credintials are not valid");
+        setError("Credentials are not valid.");
       } else {
-        setError("unknown error occured");
+        setError("Unknown error occured.");
       }
-
       return;
     }
     setError("");
