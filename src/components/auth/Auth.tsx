@@ -1,7 +1,7 @@
 import { Button, Stack, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { useGetMe } from "../../hooks/useGetMe";
+import { useNavigate } from "react-router";
 
 interface AuthProps {
   submitLabel: string;
@@ -27,10 +27,7 @@ const Auth = ({ submitLabel, onSubmit, children, error }: AuthProps) => {
       spacing={3}
       sx={{
         height: "100vh",
-        maxWidth: {
-          xs: "70%",
-          md: "30%",
-        },
+        maxWidth: 360,
         margin: "0 auto",
         justifyContent: "center",
       }}
