@@ -13,9 +13,9 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  "\n  fragment ChatFragment on Chat {\n    _id\n    userId\n    isPrivate\n    userIds\n    name\n  }\n":
+  "\n  fragment ChatFragment on Chat {\n    _id\n    name\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n":
     types.ChatFragmentFragmentDoc,
-  "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    userId\n  }\n":
+  "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      _id\n      username\n      email\n    }\n  }\n":
     types.MessageFragmentFragmentDoc,
   "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      ...ChatFragment\n    }\n  }\n":
     types.CreateChatDocument,
@@ -53,14 +53,14 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment ChatFragment on Chat {\n    _id\n    userId\n    isPrivate\n    userIds\n    name\n  }\n"
-): (typeof documents)["\n  fragment ChatFragment on Chat {\n    _id\n    userId\n    isPrivate\n    userIds\n    name\n  }\n"];
+  source: "\n  fragment ChatFragment on Chat {\n    _id\n    name\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n"
+): (typeof documents)["\n  fragment ChatFragment on Chat {\n    _id\n    name\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    userId\n  }\n"
-): (typeof documents)["\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    userId\n  }\n"];
+  source: "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      _id\n      username\n      email\n    }\n  }\n"
+): (typeof documents)["\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      _id\n      username\n      email\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
