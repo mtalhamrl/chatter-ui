@@ -31,7 +31,7 @@ const documents = {
     types.MeDocument,
   "\n  query Messages($chatId: String!) {\n    messages(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n":
     types.MessagesDocument,
-  "\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n":
+  "\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n":
     types.MessageCreatedDocument,
 };
 
@@ -107,8 +107,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n"
-): (typeof documents)["\n  subscription messageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      ...MessageFragment\n    }\n  }\n"];
+  source: "\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n"
+): (typeof documents)["\n  subscription messageCreated($chatIds: [String!]!) {\n    messageCreated(chatIds: $chatIds) {\n      ...MessageFragment\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

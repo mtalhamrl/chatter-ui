@@ -1,5 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
-import { useGetChat } from "../../hooks/useGetChat";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Avatar,
   Box,
@@ -11,11 +10,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useCreateMessage } from "../../hooks/useCreateMessage";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { useCreateMessage } from "../../hooks/useCreateMessage";
+import { useGetChat } from "../../hooks/useGetChat";
 import { useGetMessages } from "../../hooks/useGetMessages";
-import { useMessageCreated } from "../../hooks/useMessageCreated";
 
 const Chat = () => {
   const params = useParams();
@@ -26,8 +25,6 @@ const Chat = () => {
   const { data: messages } = useGetMessages({ chatId });
   const divRef = useRef<HTMLDivElement | null>(null);
   const location = useLocation();
-
-  useMessageCreated({ chatId });
 
   const scrollToBottom = () => divRef.current?.scrollIntoView();
 

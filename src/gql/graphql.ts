@@ -125,7 +125,7 @@ export type Subscription = {
 };
 
 export type SubscriptionMessageCreatedArgs = {
-  chatId: Scalars["String"]["input"];
+  chatIds: Array<Scalars["String"]["input"]>;
 };
 
 export type UpdateChatInput = {
@@ -294,7 +294,7 @@ export type MessagesQuery = {
 };
 
 export type MessageCreatedSubscriptionVariables = Exact<{
-  chatId: Scalars["String"]["input"];
+  chatIds: Array<Scalars["String"]["input"]> | Scalars["String"]["input"];
 }>;
 
 export type MessageCreatedSubscription = {
@@ -968,13 +968,19 @@ export const MessageCreatedDocument = {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "chatId" },
+            name: { kind: "Name", value: "chatIds" },
           },
           type: {
             kind: "NonNullType",
             type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
+              kind: "ListType",
+              type: {
+                kind: "NonNullType",
+                type: {
+                  kind: "NamedType",
+                  name: { kind: "Name", value: "String" },
+                },
+              },
             },
           },
         },
@@ -988,10 +994,10 @@ export const MessageCreatedDocument = {
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "chatId" },
+                name: { kind: "Name", value: "chatIds" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "chatId" },
+                  name: { kind: "Name", value: "chatIds" },
                 },
               },
             ],
