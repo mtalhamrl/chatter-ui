@@ -9,7 +9,6 @@ import Navigation from "./Navigation";
 import Settings from "./Settings";
 import { useReactiveVar } from "@apollo/client";
 import { authenticatedVar } from "../../constants/authenticated";
-import path from "path";
 import { Page } from "../../interfaces/page.interface";
 
 const pages: Page[] = [
@@ -18,6 +17,7 @@ const pages: Page[] = [
     path: "/",
   },
 ];
+
 const unauthenticatedPages: Page[] = [
   {
     title: "Login",

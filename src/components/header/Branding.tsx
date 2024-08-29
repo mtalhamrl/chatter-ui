@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
-import ChatIcon from "@mui/icons-material/Chat";
+import ForumIcon from "@mui/icons-material/Forum";
 import router from "../Routes";
+
 const Branding = () => {
   return (
     <>
-      <ChatIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+      <ForumIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
       <Typography
         variant="h6"
         noWrap
@@ -14,8 +15,8 @@ const Branding = () => {
           mr: 2,
           display: { xs: "none", md: "flex" },
           fontFamily: "monospace",
-          fontWeight: 700,
           cursor: "pointer",
+          fontWeight: 700,
           letterSpacing: ".3rem",
           color: "inherit",
           textDecoration: "none",
@@ -26,4 +27,5 @@ const Branding = () => {
     </>
   );
 };
+
 export default Branding;
