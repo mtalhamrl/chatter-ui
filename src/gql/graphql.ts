@@ -111,8 +111,15 @@ export type QueryChatArgs = {
   _id: Scalars["String"]["input"];
 };
 
+export type QueryChatsArgs = {
+  limit: Scalars["Int"]["input"];
+  skip: Scalars["Int"]["input"];
+};
+
 export type QueryMessagesArgs = {
   chatId: Scalars["String"]["input"];
+  limit: Scalars["Int"]["input"];
+  skip: Scalars["Int"]["input"];
 };
 
 export type QueryUserArgs = {
@@ -246,7 +253,10 @@ export type ChatQuery = {
   };
 };
 
-export type ChatsQueryVariables = Exact<{ [key: string]: never }>;
+export type ChatsQueryVariables = Exact<{
+  skip: Scalars["Int"]["input"];
+  limit: Scalars["Int"]["input"];
+}>;
 
 export type ChatsQuery = {
   __typename?: "Query";
@@ -279,6 +289,8 @@ export type MeQuery = {
 
 export type MessagesQueryVariables = Exact<{
   chatId: Scalars["String"]["input"];
+  skip: Scalars["Int"]["input"];
+  limit: Scalars["Int"]["input"];
 }>;
 
 export type MessagesQuery = {
@@ -769,12 +781,51 @@ export const ChatsDocument = {
       kind: "OperationDefinition",
       operation: "query",
       name: { kind: "Name", value: "Chats" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "limit" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
             name: { kind: "Name", value: "chats" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "limit" },
+                },
+              },
+            ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
@@ -895,6 +946,25 @@ export const MessagesDocument = {
             },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "limit" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -909,6 +979,22 @@ export const MessagesDocument = {
                 value: {
                   kind: "Variable",
                   name: { kind: "Name", value: "chatId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "limit" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "limit" },
                 },
               },
             ],
