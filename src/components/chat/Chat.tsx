@@ -1,4 +1,5 @@
-import SendIcon from "@mui/icons-material/Send";
+import { useLocation, useParams } from "react-router-dom";
+import { useGetChat } from "../../hooks/useGetChat";
 import {
   Avatar,
   Box,
@@ -10,10 +11,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import SendIcon from "@mui/icons-material/Send";
 import { useCreateMessage } from "../../hooks/useCreateMessage";
-import { useGetChat } from "../../hooks/useGetChat";
+import { useEffect, useRef, useState } from "react";
 import { useGetMessages } from "../../hooks/useGetMessages";
 import { PAGE_SIZE } from "../../constants/page-size";
 import { useCountMessages } from "../../hooks/useCountMessages";
@@ -41,7 +41,7 @@ const Chat = () => {
   const scrollToBottom = () => divRef.current?.scrollIntoView();
 
   useEffect(() => {
-    if (messages?.messages && messages.messages.length < PAGE_SIZE) {
+    if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
       setMessage("");
       scrollToBottom();
     }
@@ -96,7 +96,7 @@ const Chat = () => {
                         sx={{ marginLeft: "0.25rem" }}
                       >
                         {new Date(message.createdAt).toLocaleTimeString()} -{" "}
-                        {new Date(message.createdAt).toLocaleDateString()}
+                        {new Date(message.createdAt).toLocaleDateString()}{" "}
                       </Typography>
                     </Stack>
                   </Grid>
