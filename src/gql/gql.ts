@@ -27,7 +27,7 @@ const documents = {
     types.ChatDocument,
   "\n  query Chats($skip: Int!, $limit: Int!) {\n    chats(skip: $skip, limit: $limit) {\n      ...ChatFragment\n    }\n  }\n":
     types.ChatsDocument,
-  "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n":
+  "\n  query Me {\n    me {\n      _id\n      email\n      username\n    }\n  }\n":
     types.MeDocument,
   "\n  query Messages($chatId: String!, $skip: Int!, $limit: Int!) {\n    messages(chatId: $chatId, skip: $skip, limit: $limit) {\n      ...MessageFragment\n    }\n  }\n":
     types.MessagesDocument,
@@ -95,8 +95,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n"
-): (typeof documents)["\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n"];
+  source: "\n  query Me {\n    me {\n      _id\n      email\n      username\n    }\n  }\n"
+): (typeof documents)["\n  query Me {\n    me {\n      _id\n      email\n      username\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

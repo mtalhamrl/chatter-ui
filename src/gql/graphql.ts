@@ -284,7 +284,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
   __typename?: "Query";
-  me: { __typename?: "User"; _id: string; email: string };
+  me: { __typename?: "User"; _id: string; email: string; username: string };
 };
 
 export type MessagesQueryVariables = Exact<{
@@ -916,6 +916,7 @@ export const MeDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "_id" } },
                 { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "username" } },
               ],
             },
           },
