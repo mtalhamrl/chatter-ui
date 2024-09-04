@@ -150,6 +150,7 @@ export type User = {
   __typename?: "User";
   _id: Scalars["ID"]["output"];
   email: Scalars["String"]["output"];
+  imageUrl: Scalars["String"]["output"];
   username: Scalars["String"]["output"];
 };
 
@@ -163,7 +164,13 @@ export type ChatFragmentFragment = {
     content: string;
     createdAt: any;
     chatId: string;
-    user: { __typename?: "User"; _id: string; username: string; email: string };
+    user: {
+      __typename?: "User";
+      _id: string;
+      email: string;
+      username: string;
+      imageUrl: string;
+    };
   } | null;
 };
 
@@ -173,7 +180,21 @@ export type MessageFragmentFragment = {
   content: string;
   createdAt: any;
   chatId: string;
-  user: { __typename?: "User"; _id: string; username: string; email: string };
+  user: {
+    __typename?: "User";
+    _id: string;
+    email: string;
+    username: string;
+    imageUrl: string;
+  };
+};
+
+export type UserFragmentFragment = {
+  __typename?: "User";
+  _id: string;
+  email: string;
+  username: string;
+  imageUrl: string;
 };
 
 export type CreateChatMutationVariables = Exact<{
@@ -195,8 +216,9 @@ export type CreateChatMutation = {
       user: {
         __typename?: "User";
         _id: string;
-        username: string;
         email: string;
+        username: string;
+        imageUrl: string;
       };
     } | null;
   };
@@ -214,7 +236,13 @@ export type CreateMessageMutation = {
     content: string;
     createdAt: any;
     chatId: string;
-    user: { __typename?: "User"; _id: string; username: string; email: string };
+    user: {
+      __typename?: "User";
+      _id: string;
+      email: string;
+      username: string;
+      imageUrl: string;
+    };
   };
 };
 
@@ -246,8 +274,9 @@ export type ChatQuery = {
       user: {
         __typename?: "User";
         _id: string;
-        username: string;
         email: string;
+        username: string;
+        imageUrl: string;
       };
     } | null;
   };
@@ -273,8 +302,9 @@ export type ChatsQuery = {
       user: {
         __typename?: "User";
         _id: string;
-        username: string;
         email: string;
+        username: string;
+        imageUrl: string;
       };
     } | null;
   }>;
@@ -284,7 +314,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
   __typename?: "Query";
-  me: { __typename?: "User"; _id: string; email: string; username: string };
+  me: {
+    __typename?: "User";
+    _id: string;
+    email: string;
+    username: string;
+    imageUrl: string;
+  };
 };
 
 export type MessagesQueryVariables = Exact<{
@@ -301,7 +337,13 @@ export type MessagesQuery = {
     content: string;
     createdAt: any;
     chatId: string;
-    user: { __typename?: "User"; _id: string; username: string; email: string };
+    user: {
+      __typename?: "User";
+      _id: string;
+      email: string;
+      username: string;
+      imageUrl: string;
+    };
   }>;
 };
 
@@ -317,10 +359,38 @@ export type MessageCreatedSubscription = {
     content: string;
     createdAt: any;
     chatId: string;
-    user: { __typename?: "User"; _id: string; username: string; email: string };
+    user: {
+      __typename?: "User";
+      _id: string;
+      email: string;
+      username: string;
+      imageUrl: string;
+    };
   };
 };
 
+export const UserFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UserFragmentFragment, unknown>;
 export const MessageFragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -344,12 +414,30 @@ export const MessageFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
         ],
       },
     },
@@ -388,6 +476,23 @@ export const ChatFragmentFragmentDoc = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -406,9 +511,10 @@ export const ChatFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -471,6 +577,23 @@ export const CreateChatDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -489,9 +612,10 @@ export const CreateChatDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -582,6 +706,23 @@ export const CreateMessageDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -600,9 +741,10 @@ export const CreateMessageDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -717,6 +859,23 @@ export const ChatDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -735,9 +894,10 @@ export const ChatDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -841,6 +1001,23 @@ export const ChatsDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -859,9 +1036,10 @@ export const ChatsDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -914,12 +1092,30 @@ export const MeDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
         ],
       },
     },
@@ -1014,6 +1210,23 @@ export const MessagesDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -1032,9 +1245,10 @@ export const MessagesDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
@@ -1103,6 +1317,23 @@ export const MessageCreatedDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "UserFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "User" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "_id" } },
+          { kind: "Field", name: { kind: "Name", value: "email" } },
+          { kind: "Field", name: { kind: "Name", value: "username" } },
+          { kind: "Field", name: { kind: "Name", value: "imageUrl" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "MessageFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -1121,9 +1352,10 @@ export const MessageCreatedDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "_id" } },
-                { kind: "Field", name: { kind: "Name", value: "username" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "UserFragment" },
+                },
               ],
             },
           },
